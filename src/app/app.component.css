@@ -1,3 +1,19 @@
 .active {
-    text-decoration: underline
+    text-decoration: underline;
+    background-color: aliceblue;
+    color: green;
+}
+
+button {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.box {
+    border-radius: 5px;
+    margin: 0 0 5px 0;
+    padding: 20px;
+    text-align: center;
 }

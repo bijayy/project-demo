@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'student-list',
     template: `
-    <h4>{{title | uppercase }}</h4>
-    <div *ngIf="students">
-        <div [ngClass]="['box']" *ngFor="let student of students">
+    <div [ngClass]="['box']" *ngIf="students">
+        <div class="title">{{title | uppercase }}</div>
+        <div *ngFor="let student of students">
             <div [ngClass]="['design']">
                 <div>Student Id: {{student.Id}}</div>
                 <div>Student Name: {{student.Name}}</div>
@@ -28,14 +28,19 @@ import { Router } from '@angular/router';
         }
 
         .box {
-            float: left;
-            max-height: 400px,
-            max-width: 600px;
-            min-height: 400px,
-            min-width: 600px;
-            overflow-y: true;
-            background-color: #df4;
-            border: 5px solid red;
+            background-color: lightgrey;
+            border: 5px solid darkgrey;
+            border-radius: 5px;
+            margin: 0 0 5px 0;
+            padding: 5px;
+            width: 600px;
+        }
+
+        button {
+            padding: 5px;
+            margin-right: 5px;
+            border-radius: 10px;
+            cursor: pointer;
         }
         `
     ]

@@ -6,27 +6,70 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
     selector: 'student-update',
     template: `
-    <form #updateStudentForm="ngForm" (ngSubmit)="updateStudent(updateStudentForm.value)">
-    <div *ngIf="student">
-        <h4>Update Student Section</h4>
-        <div>
-            <label for="Name">Name:</label>
-            <input [(ngModel)]="student.Name" type="text" id="Name" name="Name" placeholder="Enter Name..." required />
-        </div>
-        <div>
-            <label for="Email">Email:</label>
-            <input [(ngModel)]="student.Email" type="text" id="Email" name="Email" placeholder="Enter Email..." required />
-        </div>
-        <div>
-            <button type="submit">Update</button>
-        </div>
+    <form [ngClass]="['align']" #updateStudentForm="ngForm" (ngSubmit)="updateStudent(updateStudentForm.value)">
+        
+        <div [ngClass]="['box']" *ngIf="student">
+            <div class="title">{{title | uppercase}}</div>
+            <div>
+                <span>ID: </span>
+                <div>{{student.Id}}</div>
+            </div>
+            <div>
+                <label for="Name">Name:</label>
+                <input [(ngModel)]="student.Name" type="text" id="Name" name="Name" placeholder="Enter Name..." required />
+            </div>
+            <div>
+                <label for="Email">Email:</label>
+                <input [(ngModel)]="student.Email" type="text" id="Email" name="Email" placeholder="Enter Email..." required />
+            </div>
+            <div>
+                <button type="submit">Update</button>
+            </div>
         </div>
     </form>
-    `
+    `,
+    styles: [`
+        .box {
+            background-color: lightgrey;
+            border: 5px solid darkgrey;
+            border-radius: 5px;
+            margin: 0 0 5px 0;
+            padding: 20px;
+            width: 600px;
+        }
+
+        .align {
+            align: center;
+        }
+
+        div div input, label, span {
+            margin: 0 0 10px 0;
+        }
+
+        label, span, div div div {
+            height: 30px;
+            font-size:13pt;
+        }
+
+        button {
+            height: 30px;
+            font-size:13pt;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input {
+            width: 95%;
+            height: 30px;
+            padding-left: 10px;
+            border-radius: 5px;
+            font-size:14pt;
+        }
+    `]
 })
 
 export class StudentUpdateComponent implements OnInit {
-
+    title: string = "Update Student Section"
     student: Student = null
     message: string = ""
     
