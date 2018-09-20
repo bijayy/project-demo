@@ -8,14 +8,12 @@ import { AppComponent } from './app.component';
 import { StudentService } from './services/student.service';
 import { StudentListComponent } from './student/student-list.component';
 import { StudentSearchComponent } from './student/student-search.component';
-import { StudentDeleteComponent } from './student/student-delete.component';
 import { StudentAddComponent } from './student/student-add.component';
 import { StudentUpdateComponent } from './student/student-update.component';
 import { Error404Component } from './error/404.component';
 
 const appRoutes: Routes = [
   { path:"student/search", component: StudentSearchComponent },
-  { path:"student/delete/:{id}", component: StudentDeleteComponent },
   { path:"student/add", component: StudentAddComponent },
   { path:"student/update/:{id}", component: StudentUpdateComponent },
   { path:"students", component: StudentListComponent },
@@ -29,7 +27,6 @@ const appRoutes: Routes = [
     AppComponent,
     StudentListComponent,
     StudentSearchComponent,
-    StudentDeleteComponent,
     StudentAddComponent,
     StudentUpdateComponent,
     Error404Component

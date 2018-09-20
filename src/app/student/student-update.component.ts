@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { Student } from '../models/student.model';
 import { StudentService } from '../services/student.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'student-update',
@@ -30,7 +30,7 @@ export class StudentUpdateComponent implements OnInit {
     student: Student = null
     message: string = ""
     
-    constructor(private activatedRoute: ActivatedRoute, private studentService: StudentService) {
+    constructor(private route: Router, private activatedRoute: ActivatedRoute, private studentService: StudentService) {
     
     }
   
@@ -49,9 +49,13 @@ export class StudentUpdateComponent implements OnInit {
 
     updateStudent(formValues) {
         console.log(formValues)
-        this.studentService.updateStudent(this.student.Id, formValues as Student).subscribe((message)=> {
-          if(message) {
-            console.log(`Updated Successfully: ${message}`)
+        this.studentService.updateStudent(this.student.Id, formValues as Student).subscribe((fail)=> {
+            if(fail === null) {
+                this.message = `Student details with id(${this.student.Id}) updated Successfully`;
+                this.route.navigate(['/students'])
+            }
+            else {
+                this.message = "Update failed. Please try again..."
             }
         })
     }

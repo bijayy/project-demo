@@ -1,61 +1,6 @@
 <h4>{{title}}</h4>
 
-<button type="button" [routerLink] ="['/students']" >Get Students</button>
+<button type="button" [routerLink] ="['/students']" >All Students</button>
 <button type="button" [routerLink] ="['/student/add']" >Add Student</button>
-<button type="button" [routerLink] ="['/student/update']" >Update Student</button>
-<button type="button" [routerLink] ="['/student/delete']" >Delete Student</button>
 <button type="button" [routerLink] ="['/student/search']" >Search a Student</button>
 <router-outlet></router-outlet>
-<!-- <form #addStudentForm="ngForm" (ngSubmit)="addStudent(addStudentForm.value)" >
-    <h4>Add Student Section</h4>
-    <div>
-        <label for="Name">Name:</label>
-        <input (ngModel)="Name" type="text" id="Name" name="Name" placeholder="Enter Name..." required />
-    </div>
-    <div>
-        <label for="Email">Email:</label>
-        <input (ngModel)="Email" type="text" id="Email" name="Email" placeholder="Enter Email..." required />
-    </div>
-    <div>
-        <button type="submit">Save</button>
-    </div>
-</form>
-<hr />
-<form #updateStudentForm="ngForm" (ngSubmit)="updateStudent(updateStudentForm.value)">
-    <h4>Update Student Section</h4>
-    <div>
-        <label for="Id">Id:</label>
-        <input (ngModel)="Id" type="text" id="Id" name="Id" placeholder="Enter Id..." required />
-    </div>
-    <div>
-        <label for="Name">Name:</label>
-        <input (ngModel)="Name" type="text" id="Name" name="Name" placeholder="Enter Name..." required />
-    </div>
-    <div>
-        <label for="Email">Email:</label>
-        <input (ngModel)="Email" type="text" id="Email" name="Email" placeholder="Enter Email..." required />
-    </div>
-    <div>
-        <button type="submit">Update</button>
-    </div>
-</form>
-<hr />
-<div>
-    <button type="button" [routerLink] ="['/student']" >Get Students</button>
-</div>
-
-<div>
-    <div>
-        <label for="id">Student ID:</label>
-        <input #id type="number" id="id" name="id" placeholder="Enter Id" required />
-    </div>
-    <button type="button" (click)="getStudentById(id.value)">GetStudentByID</button>
-    <button type="button" (click)="deleteStudent(id.value)">DeleteStudentByID</button>
-
-    <h4>Student Details Section</h4>
-    <div *ngIf="student">
-        <div>Student Name: {{student.Name}}</div>
-        <div>Student Email ID: {{student.Email}}</div>
-    </div>
-    <h5 *ngIf="!student">{{message}}</h5>
-</div> -->

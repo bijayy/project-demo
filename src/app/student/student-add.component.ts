@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component } from '@angular/core'
 import { Student } from '../models/student.model';
 import { StudentService } from '../services/student.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'student-add',
@@ -22,31 +23,18 @@ import { StudentService } from '../services/student.service';
     `
 })
 
-export class StudentAddComponent implements OnInit {
-
-    students: Student[]
+export class StudentAddComponent {
     message: string = ""
     
-    constructor(private studentService: StudentService) {
+    constructor(private router: Router, private studentService: StudentService) {
     
-    }
-  
-    ngOnInit() {
-        this.students = null
-        this.studentService.getStudents().subscribe(students => {
-            if(students) {
-                this.students = students
-                console.log(this.students)
-            }
-            else {
-                this.message = "No record found, please try again later."
-            }
-        })
     }
 
     addStudent(formValues) {
-        this.studentService.addStudent(formValues as Student).subscribe(student => {
-            console.log(student)
+        this.studentService.addStudent(formValues as Student).subscribe(fail => {
+            if(fail === null) {
+                this.router.navigate(['/students'])
+            }
         })
       }
 }

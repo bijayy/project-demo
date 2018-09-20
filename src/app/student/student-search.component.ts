@@ -6,30 +6,26 @@ import { StudentService } from '../services/student.service';
     selector: 'student-search',
     template: `
     <h4>Student Search Section</h4>
+    <div>
+        <label for="id">Student ID:</label>
+        <input #id type="number" id="id" name="id" placeholder="Enter Id..." />
+    </div>
+    <button type="button" [disabled] = "" (click)="getStudentById(id.value)">Search</button>
     <div *ngIf="student">
         <div>Student Name: {{student.Id}}</div>
         <div>Student Name: {{student.Name}}</div>
         <div>Student Email ID: {{student.Email}}</div>
     </div>
     <h5 *ngIf="!student">{{message}}</h5>
-    <div>
-        <label for="id">Student ID:</label>
-        <input #id type="number" id="id" name="id" placeholder="Enter Id..." />
-    </div>
-    <button type="button" [disabled] = "" (click)="getStudentById(id.value)">Search</button>
     `
 })
 
-export class StudentSearchComponent implements OnInit {
+export class StudentSearchComponent {
     student: Student
     message: string
 
     constructor(private studentService: StudentService) {
     
-    }
-    
-    ngOnInit() {
-        
     }
 
     getStudentById(id: number) {
