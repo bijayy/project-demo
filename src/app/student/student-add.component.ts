@@ -7,7 +7,7 @@ import { Toastr, TOASTER_TOKEN } from '../services/toastr.service';
 @Component({
     selector: 'student-add',
     template: `
-    <form #addStudentForm="ngForm" (ngSubmit)="addStudent(addStudentForm.value)" >
+    <form [ngClass]="['parent-box']" #addStudentForm="ngForm" (ngSubmit)="addStudent(addStudentForm.value)" >
         <div [ngClass]="['box']">
         <div class="title">{{title | uppercase}}</div>
             <div>
@@ -34,6 +34,7 @@ import { Toastr, TOASTER_TOKEN } from '../services/toastr.service';
             margin: 0 0 5px 0;
             padding: 20px;
             max-width: 600px;
+            margin-left:auto; margin-right:auto; /*To align this in the center of page having parent 100% width*/
         }
 
         em {

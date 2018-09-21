@@ -7,8 +7,8 @@ import { TOASTER_TOKEN, Toastr } from '../services/toastr.service';
 @Component({
     selector: 'student-list',
     template: `
-    <div [ngClass]="['box']" >
-        <div *ngIf="students">
+    <div class="parent-box">
+        <div [ngClass]="['box']" *ngIf="students">
             <h1 class="title" *ngIf="showLoadingMessage">Loading Please Wait...</h1>
             <div class="title">{{title | uppercase }}</div>
             <div [ngClass]="['design']" *ngFor="let student of students">
@@ -45,7 +45,7 @@ import { TOASTER_TOKEN, Toastr } from '../services/toastr.service';
             padding: 5px;
             max-width: 600px;
             font-size:14pt;
-            text-align: center;
+            margin-left:auto; margin-right:auto; /*To align this in the center of page having parent 100% width*/
         }
 
         .btn-edit {
@@ -106,7 +106,7 @@ export class StudentListComponent implements OnInit {
         this.students = null
         this.showLoadingMessage = true
         this.studentService.getStudents().subscribe(students => {
-            if(students) {
+            if(students.length>0) {
                 this.students = students
                 console.log(this.students)
                 this.toastr.info(`All Students Records Loaded Successfully`)

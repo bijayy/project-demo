@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
     selector: 'student-update',
     template: `
-    <form [ngClass]="['align']" #updateStudentForm="ngForm" (ngSubmit)="updateStudent(updateStudentForm.value)">
+    <form [ngClass]="['parent-box']" #updateStudentForm="ngForm" (ngSubmit)="updateStudent(updateStudentForm.value)">
         
         <div [ngClass]="['box']" *ngIf="student">
             <div class="title">{{title | uppercase}}</div>
@@ -39,10 +39,7 @@ import { ActivatedRoute, Router } from '@angular/router';
             margin: 0 0 5px 0;
             padding: 20px;
             max-width: 600px;
-        }
-
-        .align {
-            align: center;
+            margin-left:auto; margin-right:auto; /*To align this in the center of page having parent 100% width*/
         }
 
         em {
@@ -51,7 +48,7 @@ import { ActivatedRoute, Router } from '@angular/router';
             font-size:14pt;
             margin-right: 10px;
         }
-        
+
         div div input, label, span {
             margin: 0 0 10px 0;
         }
