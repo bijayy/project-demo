@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit, Input, Inject } from '@angular/core'
 import { Student } from '../models/student.model';
 import { StudentService } from '../services/student.service';
+import { TOASTER_TOKEN, Toastr } from '../services/toastr.service'
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -16,14 +17,16 @@ import { ActivatedRoute, Router } from '@angular/router';
             </div>
             <div>
                 <label for="Name">Name:</label>
-                <input [(ngModel)]="student.Name" type="text" id="Name" name="Name" placeholder="Enter Name..." required />
+                <em [hidden]="student.Name">Required</em>
+                <input [(ngModel)]="student.Name"  type="text" id="Name" name="Name" placeholder="Enter Name..." required />
             </div>
             <div>
                 <label for="Email">Email:</label>
+                <em [hidden]="student.Email">Required</em>
                 <input [(ngModel)]="student.Email" type="text" id="Email" name="Email" placeholder="Enter Email..." required />
             </div>
             <div>
-                <button type="submit">Update</button>
+                <button [disabled]="updateStudentForm.invalid" type="submit">Update</button>
             </div>
         </div>
     </form>
@@ -35,13 +38,20 @@ import { ActivatedRoute, Router } from '@angular/router';
             border-radius: 5px;
             margin: 0 0 5px 0;
             padding: 20px;
-            width: 600px;
+            max-width: 600px;
         }
 
         .align {
             align: center;
         }
 
+        em {
+            color: red;
+            float: right;
+            font-size:14pt;
+            margin-right: 10px;
+        }
+        
         div div input, label, span {
             margin: 0 0 10px 0;
         }
@@ -73,7 +83,10 @@ export class StudentUpdateComponent implements OnInit {
     student: Student = null
     message: string = ""
     
-    constructor(private route: Router, private activatedRoute: ActivatedRoute, private studentService: StudentService) {
+    constructor(private route: Router, 
+        private activatedRoute: ActivatedRoute, 
+        private studentService: StudentService,
+        @Inject(TOASTER_TOKEN) private toastr: Toastr) {
     
     }
   
@@ -82,10 +95,10 @@ export class StudentUpdateComponent implements OnInit {
         this.studentService.getStudentById(+this.activatedRoute.snapshot.params['{id}']).subscribe(student => {
             if(student) {
                 this.student = student
-                console.log(this.student)
+                this.toastr.info(`Your are going to edit student with id (${student.Id})`)
             }
             else {
-                this.message = "No record found, please try again later."
+                this.toastr.error("No record found, please try again later...")
             }
         })
     }
@@ -94,11 +107,11 @@ export class StudentUpdateComponent implements OnInit {
         console.log(formValues)
         this.studentService.updateStudent(this.student.Id, formValues as Student).subscribe((fail)=> {
             if(fail === null) {
-                this.message = `Student details with id(${this.student.Id}) updated Successfully`;
+                this.toastr.success(`Student details with id(${this.student.Id}) updated Successfully`)
                 this.route.navigate(['/students'])
             }
             else {
-                this.message = "Update failed. Please try again..."
+                this.toastr.error("Update failed. Please try again...")
             }
         })
     }

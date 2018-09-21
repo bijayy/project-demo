@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { Student } from '../models/student.model';
 import { StudentService } from '../services/student.service';
 import { Router } from '@angular/router';
+import { Toastr, TOASTER_TOKEN } from '../services/toastr.service';
 
 @Component({
     selector: 'student-add',
@@ -11,14 +12,16 @@ import { Router } from '@angular/router';
         <div class="title">{{title | uppercase}}</div>
             <div>
                 <label for="Name">Name:</label>
+                <em *ngIf="addStudentForm.controls.Name?.invalid && (addStudentForm.controls.Name?.touched || mouseoversave)">Required</em>
                 <input (ngModel)="Name" type="text" id="Name" name="Name" placeholder="Enter Name..." required />
             </div>
             <div>
                 <label for="Email">Email:</label>
+                <em *ngIf="addStudentForm.controls.Email?.invalid && (addStudentForm.controls.Email?.touched || mouseoversave)">Required</em>
                 <input (ngModel)="Email" type="email" id="Email" name="Email" placeholder="Enter Email..." required />
             </div>
-            <div>
-                <button type="submit">Save</button>
+            <div (mouseenter)="mouseoversave=true" (mouseleave)="mouseoversave=false" >
+                <button [disabled]="addStudentForm.invalid" type="submit">Save</button>
             </div>
         </div>
     </form>
@@ -30,7 +33,14 @@ import { Router } from '@angular/router';
             border-radius: 5px;
             margin: 0 0 5px 0;
             padding: 20px;
-            width: 600px;
+            max-width: 600px;
+        }
+
+        em {
+            color: red;
+            float: right;
+            font-size:14pt;
+            margin-right: 10px;
         }
 
         div div input, label {
@@ -63,14 +73,20 @@ export class StudentAddComponent {
     title: string = "Add Student Section"
     message: string = ""
     
-    constructor(private router: Router, private studentService: StudentService) {
+    constructor(private router: Router, 
+        private studentService: StudentService,
+        @Inject(TOASTER_TOKEN) private toastr: Toastr) {
     
     }
 
     addStudent(formValues) {
         this.studentService.addStudent(formValues as Student).subscribe(fail => {
             if(fail === null) {
+                this.toastr.success("New Student Record Added Successfully")
                 this.router.navigate(['/students'])
+            }
+            else {
+                this.toastr.error("Unable To Add New Student Record. Please try again...")
             }
         })
       }

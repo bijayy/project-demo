@@ -11,6 +11,7 @@ import { StudentSearchComponent } from './student/student-search.component';
 import { StudentAddComponent } from './student/student-add.component';
 import { StudentUpdateComponent } from './student/student-update.component';
 import { Error404Component } from './error/404.component';
+import { TOASTER_TOKEN, Toastr } from './services/toastr.service';
 
 const appRoutes: Routes = [
   { path:"student/search", component: StudentSearchComponent },
@@ -21,6 +22,8 @@ const appRoutes: Routes = [
   { path: '', redirectTo:'students', pathMatch:'full' },
   { path: '**', redirectTo: '404' }
 ]
+
+let toastr:Toastr = window['toastr']
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [StudentService],
+  providers: [StudentService,
+  { provide: TOASTER_TOKEN, useValue: toastr }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
